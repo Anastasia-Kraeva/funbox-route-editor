@@ -1,48 +1,57 @@
 @import "~normalize.css";
 
 html {
-  background-color: #373534;
-  color: wheat;
+    background-color: #373534;
+    color: wheat;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
 }
 
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
 li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
 }
 
 #root {
-  display: flex;
-  justify-content: space-between;
-  padding: 32px;
+    display: flex;
+    justify-content: space-between;
+    padding: 32px;
 }
 
 .points-box {
-  max-width: 352px;
-  padding: 32px;
+    max-width: 352px;
+    padding: 32px;
 }
 
 .points-box form {
-  margin-bottom: 32px;
+    margin-bottom: 32px;
 }
 
 input:focus-visible {
-  outline:none;
+    outline: none;
+}
+
+.material-icons {
+    cursor: pointer;
+}
+
+.material-icons:active {
+    color: wheat;
+    opacity: 0.7;
 }

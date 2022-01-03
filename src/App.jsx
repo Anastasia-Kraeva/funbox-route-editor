@@ -5,12 +5,16 @@ import {useState} from 'react';
 
 function App() {
   const [inputValue, setInputValue] = useState('')
-  const [points, setPoints] = useState([{id: 1, name: 'home', address: ''}, {id: 2, name: 'work', address: ''}])
+  const [points, setPoints] = useState([{id: '1', name: 'home', address: ''}, {id: '2', name: 'work', address: ''}])
 
   const addPoint = (e) => {
     e.preventDefault()
     setPoints([...points, {id: new Date().getTime(), name: inputValue, address: ''}])
     setInputValue('')
+  }
+
+  const deletePoint = (e) => {
+    setPoints(points.filter(el => el.id !== e.target.id))
   }
 
   return (
@@ -22,7 +26,7 @@ function App() {
             setInputValue(e.target.value)
           }}
           onSubmit={addPoint}/>
-        <PointsList points={points}/>
+        <PointsList points={points} onClick={deletePoint}/>
       </div>
       <Map/>
     </>

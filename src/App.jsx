@@ -21,7 +21,7 @@ function App() {
     <>
       <div className="points-box">
         <Input
-          value={inputValue}
+          inputValue={inputValue}
           onChange={e => {
             setInputValue(e.target.value)
           }}

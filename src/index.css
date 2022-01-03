@@ -25,11 +25,22 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 4px 0;
+}
+
+#root {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px;
 }
 
 .points-box {
   max-width: 352px;
   padding: 32px;
+}
+
+.points-box form {
+  margin-bottom: 32px;
 }
 
 input:focus-visible {

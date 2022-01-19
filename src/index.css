@@ -32,6 +32,8 @@ li {
     display: flex;
     justify-content: space-between;
     padding: 32px;
+    height: 100vh;
+    box-sizing: border-box;
 }
 
 .points-box {

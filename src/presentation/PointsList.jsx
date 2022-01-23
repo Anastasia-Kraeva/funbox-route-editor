@@ -4,7 +4,7 @@ function PointsList({points, onClick}) {
     <ul>
       {points.map(el => (
         <li key={`pl-${el.id}`}>
-          {el.name}
+          {el.address}
           <span
             className="material-icons"
             id={el.id}

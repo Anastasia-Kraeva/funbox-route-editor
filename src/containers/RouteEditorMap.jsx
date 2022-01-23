@@ -1,16 +1,48 @@
+import React, {useRef} from 'react'
 import {Map, Placemark} from 'react-yandex-maps';
-import {useRef} from 'react';
 
-function RouteEditorMap({points, changeAddressPoint}) {
+function RouteEditorMap({points, changePoint, setLocation}) {
   const mapRef = useRef(null)
+
+  const getLocation = (ymaps) => {
+    return ymaps.geolocation
+      .get({
+        provider: 'browser',
+        mapStateAutoApply: true
+      })
+  }
+
+  const changeDataLocation = (ymaps) => {
+    getLocation(ymaps)
+      .then(res => {
+        const currentLocation = res.geoObjects.get(0).properties.get('text')
+        setLocation(currentLocation)
+        return res
+      })
+      .then(res => {
+        const coordinates = res.geoObjects.get(0).geometry.getCoordinates()
+        mapRef.current.setCenter(coordinates)
+      })
+  }
+
+  const changePointAddress = (pointId, newCoordinates) => {
+    changePoint(points.map(el => {
+        if (el.id === pointId) {
+          return {id: el.id, address: '?', coordinates: newCoordinates}
+        }
+        return el
+      })
+    )
+  }
 
   return (
     <Map
       width={'100%'}
       height={'100%'}
+      onLoad={ymaps => changeDataLocation(ymaps)}
       defaultState={{
-        center: [56.326793, 44.006437],
-        zoom: 12,
+        center: [55.76, 37.64],
+        zoom: 11,
       }}
       instanceRef={mapRef}>
       {
@@ -20,18 +52,17 @@ function RouteEditorMap({points, changeAddressPoint}) {
               key={point.id}
               geometry={point.coordinates}
               properties={{
-                balloonContentHeader: point.name,
-                hintContent: point.address,
+                balloonContentHeader: point.address,
               }}
               options={{
                 draggable: true,
               }}
               modules={
-                ['geoObject.addon.balloon', 'geoObject.addon.hint', 'geocode']
+                ['geoObject.addon.balloon', 'geocode']
               }
               onDragEnd={event => {
                 const coordinates = event.originalEvent.target.geometry.getCoordinates();
-                changeAddressPoint(point.id, coordinates)
+                changePointAddress(point.id, coordinates)
               }}
             />
           )

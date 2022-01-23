@@ -1,37 +1,43 @@
-/*
 import React from 'react'
 import {withYMaps} from 'react-yandex-maps';
 
-const Form = ({inputValue, onChange, onSubmit}) => {
-
+const Form = ({inputValue, onChange, onSubmit, location}) => {
   const Input = React.memo(({ymaps}) => {
-    const onLoad = () => {
-      ymaps.geolocation
-        .get({
-          provider: "browser",
-          mapStateAutoApply: true
-        })
+    const geocodeAddress = async () => {
+      const fullAddress = `${location}, ${inputValue}`;
+
+      return await ymaps.geocode(fullAddress)
         .then(res => {
-          console.log(res.geoObjects.position);
-          console.log(res.geoObjects.get(0).properties.get('text'));
-          //how to get an address in the react
+          return res.geoObjects.get(0).geometry.getCoordinates()
         })
     }
 
-    React.useEffect(() => {
-      onLoad();
-    }, []);
+    const submitDataPoint = (e) => {
+      e.preventDefault()
+
+      geocodeAddress()
+        .then(coordinates => {
+          const dataPoint = {
+            id: `${new Date().getTime()}`,
+            address: inputValue,
+            coordinates: coordinates,
+          }
+          onSubmit(dataPoint)
+        })
+    }
 
     return (
-      <form onSubmit={onSubmit}>
-        <input value={inputValue} onChange={onChange} autoFocus={true}/>
+      <form onSubmit={submitDataPoint}>
+        <input
+          value={inputValue}
+          onChange={onChange}
+          autoFocus={true}/>
       </form>
     );
   })
-  //input loses focus due to redrawing in response to a state change (added autoFocus)
 
   const ConnectedInput = React.useMemo(() => {
-    return withYMaps(Input, true, ["geolocation", "geocode"])
+    return withYMaps(Input, true, ['geocode'])
   }, [Input])
 
   return (
@@ -40,16 +46,3 @@ const Form = ({inputValue, onChange, onSubmit}) => {
 }
 
 export default Form
-*/
-
-//why use the api if you can work with it in the parent
-function Input({inputValue, onChange, onSubmit}) {
-
-  return (
-    <form onSubmit={onSubmit}>
-      <input value={inputValue} onChange={onChange}/>
-    </form>
-  );
-}
-
-export default Input;

@@ -10,7 +10,17 @@ function RouteEditor() {
     id: '1642930415115',
     address: 'даля 1',
     coordinates: [56.31913, 43.955528],
-  }])
+  },
+    {
+      id: '2642930415116',
+      address: 'геологов 1',
+      coordinates: [56.248646, 43.987661],
+    },
+    {
+      id: '1642934782504',
+      address: 'родионова 1',
+      coordinates: [56.320822, 44.044084],
+    }])
   const [location, setLocation] = React.useState('')
 
   const addPoint = (dataPoint) => {

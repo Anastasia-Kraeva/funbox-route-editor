@@ -1,8 +1,12 @@
-import { render, screen } from '@testing-library/react';
 import App from './App';
+import {cleanup, render} from '@testing-library/react';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.findByTestId('root');
-  expect(linkElement).toBeInTheDocument();
-});
+describe('App component:', () => {
+  const view = render(<App/>)
+
+  afterEach(cleanup)
+
+  /*describe('.ymaps-2-1-79-map:', () => {
+    test('should be rendered', async () => {});
+  })*/
+})
